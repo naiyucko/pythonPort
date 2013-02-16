@@ -1,0 +1,4 @@
+AzEncPerRev 1024000
+AzOffset 10
+ElOffset 10
+ElEncPerRev 40000
