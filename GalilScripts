@@ -1,0 +1,96 @@
+raster
+  PA minAz,minEl
+	BG
+	AM
+	lineNum=10
+	dx = maxAz  - minAz
+	dy = (maxEl-minEl)/lineNum
+	dx = maxAz-minAz
+	vf = 2*dx/(time)*lineNum
+	SP vf
+	n=0
+	#SNAKE
+	PR dx
+	BG A
+	AM
+	PR -dx
+	BG A
+	AM
+	PR 0,dy
+	BG
+	AM
+	n=n+1
+	JP #SNAKE, n<lineNum
+	EN
+
+
+fraster
+	PA minAz,minEl
+	BG
+	AM
+	lineNum=10
+	dx = maxAz  - minAz
+	dy = (maxEl-minEl)/lineNum
+	vf = dx/(time)*lineNum
+	SP vf
+	alt = 1
+	n=0
+	#ES
+	IF(alt<0)
+	PR dx
+	BG A
+	ENDIF
+	IF(alt>0)
+	PR -dx
+	BG A
+	ENDIF
+	AM
+	PR 0,dy
+	BG
+	AM
+	alt=alt*-1
+	n=n+1
+	JP #ES, n<lineNum
+	EN
+
+
+azScan
+	PA minAz,
+	BGA
+	AM
+	dx = maxAz-minAz
+	vf = 2*dx/(time)
+	SP vf
+	PR dx,0
+	BG 
+	AM
+	PR -dx,0
+	BG 
+	AM
+	EN
+
+
+elScan
+	PA ,minEl
+	BGB
+	AM
+	dx = maxEl-minEl
+	vf = 2*dx/(time)
+	SP ,vf
+	PR ,dx
+	BG B
+	AM
+	PR ,-dx
+	BG B
+	EN
+
+
+spin
+	cont=0
+	SHA
+	JGA = 5000
+	BGA
+	#SPINNY
+	JP #SPINNY, cont<1
+	STA
+	EN
